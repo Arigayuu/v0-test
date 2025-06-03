@@ -11,11 +11,22 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        // Apply filters
+        // Search functionality
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('brand', 'like', "%{$search}%");
+            });
+        }
+
+        // Category filter
         if ($request->filled('category')) {
             $query->where('category', $request->input('category'));
         }
 
+        // Price range filter
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->input('min_price'));
         }
@@ -24,75 +35,61 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->input('max_price'));
         }
 
-        $products = $query->paginate(9); // Adjust the number as needed for your layout
+        // Brand filter
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->input('brand'));
+        }
 
-        return view('products.index', compact('products'));
+        // Stock filter
+        if ($request->filled('in_stock')) {
+            $query->where('stock', '>', 0);
+        }
+
+        // Sorting
+        $sortBy = $request->input('sort', 'latest');
+        switch ($sortBy) {
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'name':
+                $query->orderBy('name', 'asc');
+                break;
+            case 'latest':
+            default:
+                $query->latest();
+                break;
+        }
+
+        $products = $query->paginate(12);
+        
+        // Get filter options
+        $categories = Product::distinct()->pluck('category');
+        $brands = Product::whereNotNull('brand')->distinct()->pluck('brand');
+        $priceRange = [
+            'min' => Product::min('price'),
+            'max' => Product::max('price')
+        ];
+
+        return view('products.index', compact('products', 'categories', 'brands', 'priceRange'));
     }
 
     public function show(Product $product)
     {
-        $product->load('reviews.user');
-        return view('products.show', compact('product'));
-    }
+        $product->load(['reviews.user']);
+        
+        // Get related products
+        $relatedProducts = Product::where('category', $product->category)
+            ->where('id', '!=', $product->id)
+            ->take(4)
+            ->get();
+            
+        // Calculate average rating
+        $averageRating = $product->reviews()->avg('rating');
+        $totalReviews = $product->reviews()->count();
 
-    public function create()
-    {
-        return view('products.create');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'category' => 'required',
-            'brand' => 'nullable',
-            'size' => 'nullable',
-            'image' => 'nullable|image'
-        ]);
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $validated['image'] = $path;
-        }
-
-        Product::create($validated);
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
-    }
-
-    public function edit(Product $product)
-    {
-        return view('products.edit', compact('product'));
-    }
-
-    public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'category' => 'required',
-            'brand' => 'nullable',
-            'size' => 'nullable',
-            'image' => 'nullable|image'
-        ]);
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $validated['image'] = $path;
-        }
-
-        $product->update($validated);
-        return redirect()->route('products.index')->with('success', 'Product updated successfully');
-    }
-
-    public function destroy(Product $product)
-    {
-        // Add image deletion logic if needed
-        $product->delete();
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+        return view('products.show', compact('product', 'relatedProducts', 'averageRating', 'totalReviews'));
     }
 }

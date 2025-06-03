@@ -14,32 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-
-    public function statistics()
-    {
-        $totalUsers = User::count();
-        $totalProducts = Product::count();
-        $totalOrders = Order::count();
-        $totalRevenue = Order::where('payment_status', 'paid')->sum('total_amount');
-        $recentOrders = Order::with(['user', 'items.product'])
-            ->latest()
-            ->take(5)
-            ->get();
-        $recentReviews = Review::with(['user', 'product'])
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('admin.statistics', compact(
-            'totalUsers',
-            'totalProducts',
-            'totalOrders',
-            'totalRevenue',
-            'recentOrders',
-            'recentReviews'
-        ));
-    }
-
     public function users()
     {
         $users = User::latest()->paginate(10);
@@ -98,9 +72,5 @@ class AdminController extends Controller
 
         return redirect()->route('admin.reviews.index')
             ->with('success', 'Review deleted successfully.');
-    }
-    public function index()
-    {
-        return view('admin.dashboard');
     }
 }

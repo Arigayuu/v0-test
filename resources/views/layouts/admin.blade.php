@@ -53,13 +53,35 @@
         .admin-brand:hover {
             color: rgba(255,255,255,0.9);
         }
+
+        /* Mobile Styles */
+        @media (max-width: 767.98px) {
+            .admin-sidebar {
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                z-index: 1050;
+                height: 100vh;
+                transition: left 0.3s ease;
+            }
+            .admin-sidebar.show {
+                left: 0;
+            }
+            .admin-content {
+                margin-left: 0 !important;
+            }
+            .admin-header {
+                border-left: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Admin Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse">
+            <nav id="adminSidebar" class="col-md-3 col-lg-2 d-md-block admin-sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="text-center mb-4">
                         <a href="{{ route('admin.dashboard') }}" class="admin-brand">
@@ -75,31 +97,31 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}"
                                href="{{ route('admin.products.index') }}">
                                 <i class="fas fa-box me-2"></i>Products
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}"
                                href="{{ route('admin.orders.index') }}">
                                 <i class="fas fa-shopping-cart me-2"></i>Orders
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
                                href="{{ route('admin.users.index') }}">
                                 <i class="fas fa-users me-2"></i>Users
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}"
                                href="{{ route('admin.reviews.index') }}">
                                 <i class="fas fa-star me-2"></i>Reviews
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('admin.statistics') ? 'active' : '' }}" 
+                            <a class="nav-link {{ request()->routeIs('admin.statistics') ? 'active' : '' }}"
                                href="{{ route('admin.statistics') }}">
                                 <i class="fas fa-chart-bar me-2"></i>Statistics
                             </a>
@@ -130,6 +152,9 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 admin-content">
                 <!-- Header -->
                 <div class="admin-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <button class="btn btn-primary d-md-none me-2" type="button" data-bs-toggle="collapse" data-bs-target="#adminSidebar" aria-controls="adminSidebar" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <h1 class="h2 text-primary">@yield('page-title', 'Dashboard')</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="dropdown">
@@ -176,6 +201,18 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('adminSidebar');
+            const sidebarToggle = document.querySelector('[data-bs-toggle="collapse"]');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('show');
+                });
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

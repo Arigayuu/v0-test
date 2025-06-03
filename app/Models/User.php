@@ -15,7 +15,7 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -23,13 +23,14 @@ class User extends Authenticatable
         'password',
         'role',
         'address',
-        'phone'
+        'phone',
+        'profile_image',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -49,18 +50,80 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Get the orders for the user.
+     */
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * Get the reviews for the user.
+     */
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
 
-    public function isAdmin()
+    /**
+     * Get the cart items for the user.
+     */
+    public function cartItems()
     {
-        return $this->role === 'admin';
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get user's full address
+     */
+    public function getFullAddressAttribute(): string
+    {
+        return $this->address ?? 'No address provided';
+    }
+
+    /**
+     * Get user's display phone
+     */
+    public function getDisplayPhoneAttribute(): string
+    {
+        return $this->phone ?? 'No phone provided';
+    }
+
+    /**
+     * Get profile image URL
+     */
+    public function getProfileImageUrlAttribute(): string
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        return asset('images/default-avatar.png');
+    }
+
+    /**
+     * Get cart total count
+     */
+    public function getCartCountAttribute(): int
+    {
+        return $this->cartItems()->sum('quantity');
+    }
+
+    /**
+     * Get cart total amount
+     */
+    public function getCartTotalAttribute(): float
+    {
+        return $this->cartItems()->with('product')->get()->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
     }
 }
