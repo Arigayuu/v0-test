@@ -75,6 +75,7 @@
             text-align: left;
             padding: 1rem;
             color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
         }
         
         #sidebar .nav-item .nav-link:hover,
@@ -136,6 +137,47 @@
         
         .page-header {
             margin-bottom: 1.5rem;
+        }
+        
+        .img-profile {
+            width: 2rem;
+            height: 2rem;
+            object-fit: cover;
+        }
+        
+        .icon-circle {
+            height: 2.5rem;
+            width: 2.5rem;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 100%;
+            border: 2px solid #fff;
+        }
+        
+        .dropdown-list-image {
+            position: relative;
+        }
+        
+        .dropdown-list-image img {
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+        
+        .topbar-divider {
+            width: 0;
+            border-right: 1px solid #e3e6f0;
+            height: calc(4.375rem - 2rem);
+            margin: auto 1rem;
         }
         
         /* Responsive */
@@ -331,13 +373,12 @@
                             </h6>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
+                                    <img class="rounded-circle" src="/placeholder.svg?height=60&width=60" alt="...">
                                     <div class="status-indicator bg-success"></div>
                                 </div>
                                 <div>
-                                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                        told me that people say this to all dogs, even if they aren't good...</div>
-                                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                    <div class="text-truncate">New order received from customer...</div>
+                                    <div class="small text-gray-500">Customer · 2w</div>
                                 </div>
                             </a>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
@@ -351,29 +392,39 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="me-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                            <img class="img-profile rounded-circle" width="32" height="32"
-                                 src="{{ Auth::user()->profile_image_url }}">
+                            @if(Auth::user()->profile_image)
+                                <img class="img-profile rounded-circle" 
+                                     src="{{ Storage::url(Auth::user()->profile_image) }}" 
+                                     alt="Profile">
+                            @else
+                                <img class="img-profile rounded-circle" 
+                                     src="/placeholder.svg?height=32&width=32" 
+                                     alt="Profile">
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                            <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
                                 <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('admin.statistics') }}">
                                 <i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>
                                 Activity Log
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault(); document.getElementById('logout-form-2').submit();">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
                                 Logout
                             </a>
+                            <form id="logout-form-2" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul>
@@ -402,7 +453,7 @@
             <footer class="sticky-footer bg-white mt-4">
                 <div class="container">
                     <div class="copyright text-center my-auto py-4">
-                        <span>Copyright &copy; Taekwondo Shop 2023</span>
+                        <span>Copyright &copy; Taekwondo Shop {{ date('Y') }}</span>
                     </div>
                 </div>
             </footer>

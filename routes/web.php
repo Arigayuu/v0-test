@@ -7,7 +7,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -36,8 +35,10 @@ Route::middleware('auth')->group(function () {
     
     // Profile management
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [UserController::class, 'updatePassword'])->name('profile.password');
+    Route::post('/profile/image', [UserController::class, 'uploadProfileImage'])->name('profile.image.upload');
     Route::delete('/profile/image', [UserController::class, 'removeProfileImage'])->name('profile.image.remove');
     
     // Cart management
@@ -66,10 +67,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/statistics', [AdminDashboardController::class, 'statistics'])->name('statistics');
     
-    // Migration Status
-    Route::get('/migrations', [MigrationController::class, 'status'])->name('migrations.status');
-    Route::post('/migrations/run', [MigrationController::class, 'run'])->name('migrations.run');
-    
     // Product management
     Route::resource('products', AdminProductController::class);
     
@@ -82,10 +79,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // User management
     Route::get('/users', [AdminController::class, 'users'])->name('users.index');
     Route::get('/users/{user}', [AdminController::class, 'showUser'])->name('users.show');
+    Route::get('/users/{user}/edit', [AdminController::class, 'editUser'])->name('users.edit');
     Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('users.update');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('users.destroy');
     
     // Review management
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews.index');
     Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview'])->name('reviews.destroy');
+    
+    // Admin profile
+    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [AdminController::class, 'editProfile'])->name('profile.edit');
+    Route::put('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [AdminController::class, 'updatePassword'])->name('profile.password');
 });
