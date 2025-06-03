@@ -97,14 +97,46 @@
                                     <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Place Your Order</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('orders.store') }}" method="POST">
+                                    <!-- Add to Cart Form -->
+                                    <form action="{{ route('cart.add', $product) }}" method="POST" class="mb-3">
                                         @csrf
+                                        <div class="row">
+                                            <div class="col-8">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="decreaseQuantity('cart-quantity')">-</button>
+                                                    <input type="number" 
+                                                           class="form-control text-center" 
+                                                           id="cart-quantity" 
+                                                           name="quantity" 
+                                                           value="1" 
+                                                           min="1" 
+                                                           max="{{ $product->stock }}" 
+                                                           required>
+                                                    <button type="button" class="btn btn-outline-secondary" onclick="increaseQuantity('cart-quantity')">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <button type="submit" class="btn btn-outline-primary w-100">
+                                                    <i class="fas fa-cart-plus me-1"></i>Add to Cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="text-center mb-3">
+                                        <span class="text-muted">OR</span>
+                                    </div>
+
+                                    <!-- Direct Order Form -->
+                                    <form action="{{ route('orders.store') }}" method="POST" id="orderForm">
+                                        @csrf
+                                        <input type="hidden" name="source" value="direct">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         
                                         <div class="mb-3">
                                             <label for="quantity" class="form-label fw-bold">Quantity</label>
                                             <div class="input-group">
-                                                <button type="button" class="btn btn-outline-secondary" onclick="decreaseQuantity()">-</button>
+                                                <button type="button" class="btn btn-outline-secondary" onclick="decreaseQuantity('quantity')">-</button>
                                                 <input type="number" 
                                                        class="form-control text-center @error('quantity') is-invalid @enderror" 
                                                        id="quantity" 
@@ -113,7 +145,7 @@
                                                        min="1" 
                                                        max="{{ $product->stock }}" 
                                                        required>
-                                                <button type="button" class="btn btn-outline-secondary" onclick="increaseQuantity()">+</button>
+                                                <button type="button" class="btn btn-outline-secondary" onclick="increaseQuantity('quantity')">+</button>
                                             </div>
                                             @error('quantity')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -127,7 +159,8 @@
                                                       id="shipping_address" 
                                                       name="shipping_address" 
                                                       rows="3" 
-                                                      required>{{ old('shipping_address', Auth::user()->address) }}</textarea>
+                                                      placeholder="Enter your complete shipping address..."
+                                                      required>{{ old('shipping_address', Auth::user()->address ?? '') }}</textarea>
                                             @error('shipping_address')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -141,13 +174,13 @@
                                                     required>
                                                 <option value="">Select Payment Method</option>
                                                 <option value="bank_transfer" {{ old('payment_method') == 'bank_transfer' ? 'selected' : '' }}>
-                                                    <i class="fas fa-university me-2"></i>Bank Transfer
+                                                    Bank Transfer
                                                 </option>
                                                 <option value="e_wallet" {{ old('payment_method') == 'e_wallet' ? 'selected' : '' }}>
-                                                    <i class="fas fa-mobile-alt me-2"></i>E-Wallet
+                                                    E-Wallet (OVO, GoPay, DANA)
                                                 </option>
                                                 <option value="credit_card" {{ old('payment_method') == 'credit_card' ? 'selected' : '' }}>
-                                                    <i class="fas fa-credit-card me-2"></i>Credit Card
+                                                    Credit Card
                                                 </option>
                                             </select>
                                             @error('payment_method')
@@ -172,7 +205,7 @@
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+                                        <button type="submit" class="btn btn-danger btn-lg w-100" id="orderButton">
                                             <i class="fas fa-shopping-cart me-2"></i>Order Now
                                         </button>
                                     </form>
@@ -268,7 +301,14 @@
                                     <div class="reviewer-info">
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
-                                                <i class="fas fa-user text-white"></i>
+                                                @if($review->user->profile_image)
+                                                    <img src="{{ asset('storage/' . $review->user->profile_image) }}" 
+                                                         class="rounded-circle" 
+                                                         style="width: 40px; height: 40px; object-fit: cover;"
+                                                         alt="{{ $review->user->name }}">
+                                                @else
+                                                    <i class="fas fa-user text-white"></i>
+                                                @endif
                                             </div>
                                             <div>
                                                 <h6 class="mb-0">{{ $review->user->name }}</h6>
@@ -325,23 +365,51 @@ function updateTotal() {
     document.getElementById('total').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
 }
 
-function increaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
+function increaseQuantity(inputId) {
+    const quantityInput = document.getElementById(inputId);
     const currentValue = parseInt(quantityInput.value) || 1;
     if (currentValue < maxStock) {
         quantityInput.value = currentValue + 1;
-        updateTotal();
+        if (inputId === 'quantity') {
+            updateTotal();
+        }
     }
 }
 
-function decreaseQuantity() {
-    const quantityInput = document.getElementById('quantity');
+function decreaseQuantity(inputId) {
+    const quantityInput = document.getElementById(inputId);
     const currentValue = parseInt(quantityInput.value) || 1;
     if (currentValue > 1) {
         quantityInput.value = currentValue - 1;
-        updateTotal();
+        if (inputId === 'quantity') {
+            updateTotal();
+        }
     }
 }
+
+// Form validation
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+    const shippingAddress = document.getElementById('shipping_address').value.trim();
+    const paymentMethod = document.getElementById('payment_method').value;
+    
+    if (!shippingAddress) {
+        e.preventDefault();
+        alert('Please enter your shipping address');
+        document.getElementById('shipping_address').focus();
+        return false;
+    }
+    
+    if (!paymentMethod) {
+        e.preventDefault();
+        alert('Please select a payment method');
+        document.getElementById('payment_method').focus();
+        return false;
+    }
+    
+    // Disable button to prevent double submission
+    document.getElementById('orderButton').disabled = true;
+    document.getElementById('orderButton').innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+});
 
 document.getElementById('quantity').addEventListener('input', updateTotal);
 
@@ -374,6 +442,16 @@ updateTotal();
 .order-section {
     position: sticky;
     top: 100px;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
 }
 </style>
 @endsection

@@ -80,8 +80,8 @@ class OrderController extends Controller
                 
                 if ($product->stock < $validated['quantity']) {
                     return back()->withErrors([
-                        'stock' => "Insufficient stock for product: {$product->name}. Available: {$product->stock}"
-                    ]);
+                        'quantity' => "Insufficient stock for product: {$product->name}. Available: {$product->stock}"
+                    ])->withInput();
                 }
                 
                 $total = $product->price * $validated['quantity'];
