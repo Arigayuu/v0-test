@@ -296,7 +296,7 @@ const statusChart = new Chart(statusCtx, {
     border-radius: 100%;
     display: flex;
     align-items: center;
-    justify-content-center;
+    justify-content: center;
 }
 </style>
 @endsection
