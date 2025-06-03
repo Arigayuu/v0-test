@@ -36,4 +36,4 @@ class DashboardController extends Controller
             'lowStockProducts'
         ));
     }
-} 
+}

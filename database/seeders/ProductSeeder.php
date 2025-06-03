@@ -70,4 +70,4 @@ class ProductSeeder extends Seeder
             Product::create($productData);
         }
     }
-} 
+}

@@ -46,4 +46,4 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.show', $order)
             ->with('success', 'Payment status updated successfully.');
     }
-} 
+}

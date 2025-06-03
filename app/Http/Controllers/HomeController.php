@@ -12,4 +12,4 @@ class HomeController extends Controller
         $featuredProducts = Product::latest()->take(8)->get();
         return view('home', compact('featuredProducts'));
     }
-} 
+}

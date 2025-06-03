@@ -51,4 +51,4 @@ class UserController extends Controller
     {
         return Auth::check() && Auth::user()->role === 'admin';
     }
-} 
+}

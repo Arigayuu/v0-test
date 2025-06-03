@@ -71,4 +71,4 @@ class OrderController extends Controller
         $order->update($validated);
         return redirect()->back()->with('success', 'Payment status updated successfully');
     }
-} 
+}

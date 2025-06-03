@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+@section('title', 'Product Management')
+@section('page-title', 'Product Management')
 
 @section('content')
 <div class="container py-4">
@@ -72,4 +74,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection

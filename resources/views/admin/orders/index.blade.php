@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+@section('title', 'Order Management')
+@section('page-title', 'Order Management')
 
 @section('content')
-<div class="container py-4">
+<div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Order Management</h1>
     </div>
@@ -66,4 +68,4 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
