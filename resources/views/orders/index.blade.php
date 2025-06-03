@@ -102,9 +102,9 @@
                                 <div class="card-body">
                                     <!-- Order Items -->
                                     <div class="order-items mb-3">
-                                        @foreach($order->items as $item)
+                                        @foreach($order->orderItems as $item)
                                             <div class="d-flex align-items-center mb-2">
-                                                @if($item->product->image)
+                                                @if($item->product && $item->product->image)
                                                     <img src="{{ asset('storage/' . $item->product->image) }}" 
                                                          alt="{{ $item->product->name }}" 
                                                          width="50" 
@@ -117,7 +117,7 @@
                                                     </div>
                                                 @endif
                                                 <div class="flex-grow-1">
-                                                    <h6 class="mb-0">{{ $item->product->name }}</h6>
+                                                    <h6 class="mb-0">{{ $item->product ? $item->product->name : 'Product Unavailable' }}</h6>
                                                     <small class="text-muted">
                                                         Qty: {{ $item->quantity }} × Rp {{ number_format($item->price, 0, ',', '.') }}
                                                     </small>

@@ -24,4 +24,10 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+    
+    // Add an alias for the orderItems relationship
+    public function items()
+    {
+        return $this->orderItems();
+    }
 }

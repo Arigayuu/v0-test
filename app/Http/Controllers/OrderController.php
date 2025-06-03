@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Auth::user()->orders()
-                     ->with(['items.product'])
+                     ->with(['orderItems.product'])
                      ->latest()
                      ->paginate(10);
         return view('orders.index', compact('orders'));
@@ -28,7 +28,7 @@ class OrderController extends Controller
             abort(403, 'Unauthorized access to order.');
         }
         
-        $order->load(['items.product', 'user']);
+        $order->load(['orderItems.product', 'user']);
         return view('orders.show', compact('order'));
     }
 

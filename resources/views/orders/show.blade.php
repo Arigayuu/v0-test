@@ -54,11 +54,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($order->items as $item)
+                                @foreach($order->orderItems as $item)
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                @if($item->product->image)
+                                                @if($item->product && $item->product->image)
                                                     <img src="{{ asset('storage/' . $item->product->image) }}" 
                                                          alt="{{ $item->product->name }}" 
                                                          width="60" 
@@ -72,12 +72,18 @@
                                                 @endif
                                                 <div>
                                                     <h6 class="mb-0">
-                                                        <a href="{{ route('products.show', $item->product) }}" 
-                                                           class="text-decoration-none">
-                                                            {{ $item->product->name }}
-                                                        </a>
+                                                        @if($item->product)
+                                                            <a href="{{ route('products.show', $item->product) }}" 
+                                                               class="text-decoration-none">
+                                                                {{ $item->product->name }}
+                                                            </a>
+                                                        @else
+                                                            Product Unavailable
+                                                        @endif
                                                     </h6>
-                                                    <small class="text-muted">{{ ucfirst($item->product->category) }}</small>
+                                                    @if($item->product)
+                                                        <small class="text-muted">{{ ucfirst($item->product->category) }}</small>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>
