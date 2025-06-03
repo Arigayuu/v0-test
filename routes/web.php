@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -20,14 +21,16 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // Authentication routes
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
 
-// Authenticated user routes
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
     // User Dashboard
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
     
@@ -62,6 +65,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Admin Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/statistics', [AdminDashboardController::class, 'statistics'])->name('statistics');
+    
+    // Migration Status
+    Route::get('/migrations', [MigrationController::class, 'status'])->name('migrations.status');
+    Route::post('/migrations/run', [MigrationController::class, 'run'])->name('migrations.run');
     
     // Product management
     Route::resource('products', AdminProductController::class);

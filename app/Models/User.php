@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
@@ -114,7 +115,15 @@ class User extends Authenticatable
      */
     public function getCartCountAttribute(): int
     {
-        return $this->cartItems()->sum('quantity');
+        try {
+            // Check if carts table exists before querying
+            if (Schema::hasTable('carts')) {
+                return $this->cartItems()->sum('quantity');
+            }
+            return 0;
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 
     /**
@@ -122,8 +131,16 @@ class User extends Authenticatable
      */
     public function getCartTotalAttribute(): float
     {
-        return $this->cartItems()->with('product')->get()->sum(function ($item) {
-            return $item->product->price * $item->quantity;
-        });
+        try {
+            // Check if carts table exists before querying
+            if (Schema::hasTable('carts')) {
+                return $this->cartItems()->with('product')->get()->sum(function ($item) {
+                    return $item->product->price * $item->quantity;
+                });
+            }
+            return 0;
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 }
