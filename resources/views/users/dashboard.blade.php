@@ -6,16 +6,13 @@
 <!-- Page Header -->
 <section class="bg-light py-5">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center" style="padding: 50px;">
             <div class="col-md-8">
                 <h1 class="display-5 fw-bold mb-3">Welcome back, {{ $user->name }}!</h1>
                 <p class="lead text-muted">Here's an overview of your account activity</p>
             </div>
             <div class="col-md-4 text-end">
-                <img src="{{ $user->profile_image_url }}" 
-                     class="rounded-circle border border-3 border-white shadow" 
-                     width="100" height="100" 
-                     alt="{{ $user->name }}">
+                <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="img-fluid rounded-circle shadow-lg">
             </div>
         </div>
     </div>
@@ -151,10 +148,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="{{ $user->profile_image_url }}" 
-                             class="rounded-circle border border-3 border-light shadow" 
-                             width="80" height="80" 
-                             alt="{{ $user->name }}">
+                        <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border border-3 border-light shadow" width="80" height="80">
                         <h5 class="mt-2 mb-0">{{ $user->name }}</h5>
                         <p class="text-muted">{{ $user->email }}</p>
                     </div>

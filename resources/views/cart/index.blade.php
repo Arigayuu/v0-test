@@ -5,7 +5,7 @@
 @section('content')
 <div class="container py-5">
     <!-- Page Header -->
-    <div class="row mb-4">
+    <div class="row mb-4" style="margin-top: 40px;">
         <div class="col-12">
             <h1 class="display-6 fw-bold">Shopping Cart</h1>
             <nav aria-label="breadcrumb">

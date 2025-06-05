@@ -8,20 +8,20 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Master Your Taekwondo Journey</h1>
-                <p class="lead mb-4">Discover premium quality Taekwondo equipment designed for champions. From traditional doboks to modern protective gear, we have everything you need to excel in your martial arts journey.</p>
+                <h1 class="display-4 fw-bold mb-4">Kuasai Perjalanan Taekwondo Anda</h1>
+                <p class="lead mb-4">Temukan perlengkapan Taekwondo berkualitas premium yang dirancang untuk para juara. Mulai dari dobok tradisional hingga perlengkapan pelindung modern, kami menyediakan semua yang Anda butuhkan untuk unggul dalam perjalanan seni bela diri Anda.</p>
                 <div class="hero-buttons">
                     <a href="{{ route('products.index') }}" class="btn btn-primary-custom btn-lg me-3">
-                        <i class="fas fa-shopping-bag me-2"></i>Shop Now
+                        <i class="fas fa-shopping-bag me-2"></i>Belanja Sekarang
                     </a>
                     <a href="#categories" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-arrow-down me-2"></i>Explore Categories
+                        <i class="fas fa-arrow-down me-2"></i>Temukan Kategori
                     </a>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
                 <div class="hero-image">
-                    <img src="/placeholder.svg?height=400&width=400" alt="Taekwondo Equipment" class="img-fluid rounded-circle shadow-lg">
+                    <img src="/Logo%20Taekwondo.jpeg" alt="Logo Taekwondo" class="img-fluid rounded-circle shadow-lg">
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
                     <div class="feature-icon bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
                         <i class="fas fa-medal fa-2x"></i>
                     </div>
-                    <h5 class="fw-bold">Premium Quality</h5>
-                    <p class="text-muted">Authentic equipment from trusted brands, ensuring durability and performance.</p>
+                    <h5 class="fw-bold">Kualitas premium</h5>
+                    <p class="text-muted">Perlengkapan asli dari merek terpercaya, menjamin daya tahan dan performa.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -46,8 +46,8 @@
                     <div class="feature-icon bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
                         <i class="fas fa-shipping-fast fa-2x"></i>
                     </div>
-                    <h5 class="fw-bold">Fast Shipping</h5>
-                    <p class="text-muted">Quick and reliable delivery to get your gear when you need it most.</p>
+                    <h5 class="fw-bold">Pengiriman Cepat</h5>
+                    <p class="text-muted">Pengiriman cepat dan terpercaya agar perlengkapanmu sampai tepat waktu saat dibutuhkan.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -55,8 +55,8 @@
                     <div class="feature-icon bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
                         <i class="fas fa-users fa-2x"></i>
                     </div>
-                    <h5 class="fw-bold">Expert Support</h5>
-                    <p class="text-muted">Professional guidance from experienced Taekwondo practitioners.</p>
+                    <h5 class="fw-bold">Dukungan Terpercaya</h5>
+                    <p class="text-muted">Bimbingan profesional dari praktisi Taekwondo berpengalaman.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -64,8 +64,8 @@
                     <div class="feature-icon bg-primary-custom text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
                         <i class="fas fa-shield-alt fa-2x"></i>
                     </div>
-                    <h5 class="fw-bold">Secure Shopping</h5>
-                    <p class="text-muted">Safe and secure transactions with multiple payment options.</p>
+                    <h5 class="fw-bold">Belanja Aman</h5>
+                    <p class="text-muted">Transaksi aman dan terpercaya dengan berbagai pilihan metode pembayaran.</p>
                 </div>
             </div>
         </div>
@@ -76,8 +76,8 @@
 <section id="categories" class="py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary-custom">Shop by Category</h2>
-            <p class="lead text-muted">Find the perfect equipment for your training needs</p>
+            <h2 class="display-5 fw-bold text-primary-custom">Pembelian Berdasarkan Kategori</h2>
+            <p class="lead text-muted">Dapatkan barang sempurna untuk kebutuhan latihanmu</p>
         </div>
         
         <div class="row">
@@ -87,9 +87,9 @@
                         <i class="fas fa-tshirt fa-4x"></i>
                     </div>
                     <h4 class="fw-bold">Dobok</h4>
-                    <p class="mb-0">Traditional uniforms for training and competition</p>
+                    <p class="mb-0">Kostum tradisional yang digunakan untuk latihan dan juga pertandingan</p>
                     <div class="mt-3">
-                        <span class="badge bg-light text-dark">{{ $categories['dobok'] ?? 0 }} Products</span>
+                        <span class="badge bg-light text-dark">{{ $categories['dobok'] ?? 0 }} Produk</span>
                     </div>
                 </a>
             </div>
@@ -99,10 +99,10 @@
                     <div class="category-icon mb-3">
                         <i class="fas fa-ribbon fa-4x"></i>
                     </div>
-                    <h4 class="fw-bold">Belts</h4>
-                    <p class="mb-0">Quality belts for all ranks and skill levels</p>
+                    <h4 class="fw-bold">Sabuk</h4>
+                    <p class="mb-0">Sabuk berkualitas untuk semua tingakatan dan tingkat keahlian</p>
                     <div class="mt-3">
-                        <span class="badge bg-light text-dark">{{ $categories['belt'] ?? 0 }} Products</span>
+                        <span class="badge bg-light text-dark">{{ $categories['belt'] ?? 0 }} Produk</span>
                     </div>
                 </a>
             </div>
@@ -112,10 +112,10 @@
                     <div class="category-icon mb-3">
                         <i class="fas fa-shield-alt fa-4x"></i>
                     </div>
-                    <h4 class="fw-bold">Protection</h4>
-                    <p class="mb-0">Safety gear for sparring and competition</p>
+                    <h4 class="fw-bold">Protektor</h4>
+                    <p class="mb-0">Perlengkapan keselamatan untuk latihan pertandingan dan saat pertandingan</p>
                     <div class="mt-3">
-                        <span class="badge bg-light text-dark">{{ $categories['protection'] ?? 0 }} Products</span>
+                        <span class="badge bg-light text-dark">{{ $categories['protection'] ?? 0 }} Produk</span>
                     </div>
                 </a>
             </div>
@@ -125,10 +125,10 @@
                     <div class="category-icon mb-3">
                         <i class="fas fa-plus fa-4x"></i>
                     </div>
-                    <h4 class="fw-bold">Accessories</h4>
-                    <p class="mb-0">Essential accessories for training and competition</p>
+                    <h4 class="fw-bold">Aksesoris</h4>
+                    <p class="mb-0">Aksesori penting untuk latihan dan pertandingan</p>
                     <div class="mt-3">
-                        <span class="badge bg-light text-dark">{{ $categories['accessories'] ?? 0 }} Products</span>
+                        <span class="badge bg-light text-dark">{{ $categories['accessories'] ?? 0 }} Produk</span>
                     </div>
                 </a>
             </div>
@@ -140,8 +140,8 @@
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary-custom">Featured Products</h2>
-            <p class="lead text-muted">Discover our most popular and highly-rated equipment</p>
+            <h2 class="display-5 fw-bold text-primary-custom">Produk Unggulan</h2>
+            <p class="lead text-muted">Temukan peralatan kami yang paling populer dan mendapatkan penilaian terbaik</p>
         </div>
         
         <div class="row">
@@ -211,25 +211,25 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
                     <h2 class="display-4 fw-bold text-primary-custom">{{ $stats['products'] ?? 0 }}+</h2>
-                    <p class="lead text-muted">Quality Products</p>
+                    <p class="lead text-muted">Kualitas Produk</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
                     <h2 class="display-4 fw-bold text-primary-custom">{{ $stats['customers'] ?? 0 }}+</h2>
-                    <p class="lead text-muted">Happy Customers</p>
+                    <p class="lead text-muted">Pelanggan Puas</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
                     <h2 class="display-4 fw-bold text-primary-custom">{{ $stats['orders'] ?? 0 }}+</h2>
-                    <p class="lead text-muted">Orders Completed</p>
+                    <p class="lead text-muted">Pesanan Selesai</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
                     <h2 class="display-4 fw-bold text-primary-custom">5</h2>
-                    <p class="lead text-muted">Years Experience</p>
+                    <p class="lead text-muted">Tahun Pengalaman</p>
                 </div>
             </div>
         </div>
@@ -241,22 +241,22 @@
     <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h2 class="display-5 fw-bold mb-4">Ready to Start Your Journey?</h2>
-                <p class="lead mb-4">Join thousands of martial artists who trust us for their Taekwondo equipment needs. Get started today and take your training to the next level.</p>
+                <h2 class="display-5 fw-bold mb-4">Siap memulai Pernajlananmu?</h2>
+                <p class="lead mb-4">Bergabunglah dengan ribuan praktisi seni bela diri yang mempercayai kami untuk kebutuhan perlengkapan Taekwondo mereka. Mulai sekarang dan tingkatkan latihan Anda ke level berikutnya.</p>
                 <div class="cta-buttons">
                     @auth
                         <a href="{{ route('products.index') }}" class="btn btn-light btn-lg me-3">
-                            <i class="fas fa-shopping-bag me-2"></i>Start Shopping
+                            <i class="fas fa-shopping-bag me-2"></i>Memulai Belanja
                         </a>
                         <a href="{{ route('orders.index') }}" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-history me-2"></i>View My Orders
+                            <i class="fas fa-history me-2"></i>Melihat Riwayat Pesanan
                         </a>
                     @else
                         <a href="{{ route('register') }}" class="btn btn-light btn-lg me-3">
-                            <i class="fas fa-user-plus me-2"></i>Create Account
+                            <i class="fas fa-user-plus me-2"></i>Memulai Pendaftaran
                         </a>
                         <a href="{{ route('products.index') }}" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-eye me-2"></i>Browse Products
+                            <i class="fas fa-eye me-2"></i>Mencari Produk
                         </a>
                     @endauth
                 </div>

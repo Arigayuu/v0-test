@@ -206,9 +206,9 @@
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-fist-raised me-2"></i>
-                <span>Taekwondo Shop</span>
+            <div class="sidebar-brand" style="margin-top: 20px;">
+                <i class="fas fa-fist-raised me-2 m-3" ></i>
+                <span >Taekwondo Shop</span>
             </div>
             
             <hr class="sidebar-divider">
@@ -317,97 +317,19 @@
                 </button>
                 
                 <!-- Page Title -->
-                <h1 class="h3 mb-0 text-gray-800 d-none d-md-inline-block">@yield('page-title', 'Dashboard')</h1>
+                <h1 class="h3 mb-2 m-3 text-gray-800 d-none d-md-inline-block">@yield('page-title', 'Dashboard')</h1>
                 
                 <!-- Topbar Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    <!-- Alerts Dropdown -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <span class="badge bg-danger badge-counter">3+</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
-                             aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">
-                                Alerts Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="me-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2023</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="me-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2023</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
-                    
-                    <!-- Messages Dropdown -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-envelope fa-fw"></i>
-                            <span class="badge bg-danger badge-counter">7</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
-                             aria-labelledby="messagesDropdown">
-                            <h6 class="dropdown-header">
-                                Message Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image me-3">
-                                    <img class="rounded-circle" src="/placeholder.svg?height=60&width=60" alt="...">
-                                    <div class="status-indicator bg-success"></div>
-                                </div>
-                                <div>
-                                    <div class="text-truncate">New order received from customer...</div>
-                                    <div class="small text-gray-500">Customer · 2w</div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                        </div>
-                    </li>
-                    
-                    <div class="topbar-divider d-none d-sm-block"></div>
-                    
+                <ul class="navbar-nav ms-auto">                    
+
                     <!-- User Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="me-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                            @if(Auth::user()->profile_image)
-                                <img class="img-profile rounded-circle" 
-                                     src="{{ Storage::url(Auth::user()->profile_image) }}" 
-                                     alt="Profile">
-                            @else
-                                <img class="img-profile rounded-circle" 
-                                     src="/placeholder.svg?height=32&width=32" 
-                                     alt="Profile">
-                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
-                                <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
-                                Profile
-                            </a>
                             <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
                                 Settings
