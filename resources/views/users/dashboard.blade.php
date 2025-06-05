@@ -148,7 +148,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center mb-3">
-                        <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border border-3 border-light shadow" width="80" height="80">
+                        <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border-3 border-light shadow" width="80" height="80">
                         <h5 class="mt-2 mb-0">{{ $user->name }}</h5>
                         <p class="text-muted">{{ $user->email }}</p>
                     </div>

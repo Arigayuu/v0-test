@@ -195,7 +195,7 @@
                     <div class="profile-avatar-container-custom mb-4">
                         <div class="profile-avatar-custom">
                             <div class="avatar-circle-custom">
-                                <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border border-3 border-light shadow" width="80" height="80">
+                                <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border-3 border-light shadow" width="80" height="80">
                                
                             </div>
                             <div class="avatar-status-custom"></div>
