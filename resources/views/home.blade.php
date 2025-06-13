@@ -21,7 +21,7 @@
             </div>
             <div class="col-lg-6 text-center">
                 <div class="hero-image">
-                    <img src="/Logo%20Taekwondo.jpeg" alt="Logo Taekwondo" class="img-fluid rounded-circle shadow-lg">
+                    <img src="{{ asset('Taekwondo_Logo.jpeg') }}" alt="Logo Taekwondo" class="img-fluid rounded-circle shadow-lg">
                 </div>
             </div>
         </div>

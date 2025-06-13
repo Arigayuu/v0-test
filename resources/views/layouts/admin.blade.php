@@ -233,14 +233,14 @@
                 </a>
             </div>
             
-            <div class="nav-item">
+            {{-- <div class="nav-item">
                 <a class="nav-link" href="{{ route('admin.products.create') }}">
                     <i class="fas fa-fw fa-plus-circle"></i>
                     <span>Add Product</span>
                 </a>
-            </div>
+            </div> --}}
             
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider">    
             
             <div class="sidebar-heading text-uppercase px-3 py-2 text-xs font-weight-bold text-white-50">
                 Orders
@@ -288,12 +288,12 @@
             
             <hr class="sidebar-divider">
             
-            <div class="nav-item">
+            {{-- <div class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}" target="_blank">
                     <i class="fas fa-fw fa-store"></i>
                     <span>View Shop</span>
                 </a>
-            </div>
+            </div> --}}
             
             <div class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" 
@@ -330,14 +330,6 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="{{ route('admin.statistics') }}">
-                                <i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form-2').submit();">

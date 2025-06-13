@@ -498,11 +498,6 @@
                 <h4 class="page-title">Manage Users</h4>
                 <p class="page-subtitle">View and manage all registered users</p>
             </div>
-            <div>
-                <button class="btn-modern" data-bs-toggle="modal" data-bs-target="#filterModal">
-                    <i class="fas fa-filter me-2"></i>Filter Users
-                </button>
-            </div>
         </div>
     </div>
 

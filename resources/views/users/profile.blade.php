@@ -194,9 +194,8 @@
                 <div class="card-body p-4 text-center">
                     <div class="profile-avatar-container-custom mb-4">
                         <div class="profile-avatar-custom">
-                            <div class="avatar-circle-custom">
-                                <img src="{{ asset('tes user.jpg') }}" alt="foto profil" class="rounded-circle border-3 border-light shadow" width="80" height="80">
-                               
+                            <div class="avatar-circle-custom d-flex justify-content-center align-items-center bg-light rounded-circle border-3 border-light shadow" style="width: 80px; height: 80px;">
+                                <i class="bi bi-person-fill" style="font-size: 40px; color: #6c757d;"></i>
                             </div>
                             <div class="avatar-status-custom"></div>
                         </div>
